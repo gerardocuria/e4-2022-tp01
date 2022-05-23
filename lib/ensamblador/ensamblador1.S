@@ -22,12 +22,35 @@
 defun copiaMemoria
     // Implementación aquí
     // R0: origen, R1: destino, R2: longitud
+0:
+    cmp     R2,#0
+    beq     1f
+    ldrb    R3,[R0],#1
+    strb    R3,[R1],#1
+    subs    R2,#1
+    b       0b
+1:
     bx lr
 endfun copiaMemoria
 
 defun copiaCadena
     // Implementación aquí
     // R0: origen, R1: destino, R2: longitudMaxima
+0:
+    cmp     R2,#0
+    beq     1f
+    ldrb    R3,[R0],#1
+    cmp     R3,0x00
+    beq     2f
+    strb    R3,[R1],#1
+    subs    R2,#1
+    b       0b
+
+1:  
+    subs    R1,#1
+2:
+    mov     R3,0x00
+    strb    R3,[R1]
     bx lr
 endfun copiaCadena
 
