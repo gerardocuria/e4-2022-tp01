@@ -57,11 +57,47 @@ endfun copiaCadena
 defun mayusculaEnLugar
     // Implementación aquí
     // R0: cadena, R1: longitudMaxima
-    bx lr
+0:
+    cmp     R2,#0
+    beq     2f
+
+    ldrb    R2,[R0],#1
+    mov     R3,R2
+    bics    R3,0x0F
+    cmp     R3,0x60
+    beq     1f
+    subs    R2,#1
+    b       0b
+1:
+    bics    R2,0xF0
+    orr     R2,0x40
+    subs    R0,#1
+    strb    R2,[R0]
+    b       0b
+2:
+    bx      lr
 endfun mayusculaEnLugar
 
 defun minusculaEnLugar
     // Implementación aquí
     // R0: cadena, R1: longitudMaxima
-    bx lr
+0:
+    cmp     R2,#0
+    beq     2f
+
+    ldrb    R2,[R0],#1
+    mov     R3,R2
+    bics    R3,0x0F
+    cmp     R3,0x40
+    beq     1f
+    subs    R2,#1
+    b       0b
+1:
+    bics    R2,0xF0
+    orr     R2,0x60
+    subs    R0,#1
+    strb    R2,[R0]
+    b       0b
+2:
+    bx      lr
 endfun minusculaEnLugar
